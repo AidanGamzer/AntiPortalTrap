@@ -1,0 +1,7 @@
+name: AntiPortalTrap
+version: ${project.version}
+main: antiportaltrap.antiportaltrap.AntiPortalTrap
+api-version: 1.14
+authors: [ AidanYoung ]
+description: Stops players trapping portals, and allows players to return through portals if they are trapped.
+website: me.aidangamzer
