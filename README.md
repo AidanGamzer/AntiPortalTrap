@@ -15,10 +15,11 @@ Players cannot place blocks within one block of a nether portal block.
 
 Players will also be kicked after trying to place a block next to a portal more than three times to avoid console spam.
 
+Portals will break blocks placed infront of it after it spawns in.
+
 ## Upcoming Features
 
 Disabling players from pistoning blocks into portals. 
-When a portal is lit breaking any blocks infront of and behind the portal.
 
 ##  Version Support
 Tested on Spigot 1.14.4
