@@ -9,7 +9,9 @@ Add the plugin to your Spigot/Bukkit server's plugin folder.
 
 Restart the server.
 
-Now players cannot place blocks within one block of a nether portal block.
+## Features
+
+Players cannot place blocks within one block of a nether portal block.
 
 Players will also be kicked after trying to place a block next to a portal more than three times to avoid console spam.
 
