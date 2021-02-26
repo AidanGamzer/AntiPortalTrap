@@ -6,16 +6,21 @@
 
 package antiportaltrap.antiportaltrap.events;
 
+import org.bukkit.Axis;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.Material;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.data.Orientable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.world.PortalCreateEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class antiTrapper implements Listener {
 
@@ -24,6 +29,49 @@ public class antiTrapper implements Listener {
     @EventHandler
     public static void playerJoined(PlayerJoinEvent event){
         attemptCount.put(event.getPlayer().getDisplayName(), 0);
+    }
+
+    @EventHandler
+    public static void createPortal(PortalCreateEvent event){
+        if(event.getBlocks().size() < 20){
+            for (int i = 0; i < event.getBlocks().size(); i++) {
+                BlockState block = event.getBlocks().get(i);
+                if(block.getType() == Material.NETHER_PORTAL){
+                    int x = block.getX();
+                    int y = block.getY();
+                    int z = block.getZ();
+
+                    int xMinus = x - 1;
+                    int xPlus = x + 1;
+
+                    int zMinus = z - 1;
+                    int zPlus = z + 1;
+
+                    if(block.getBlockData() instanceof Orientable){
+                        Orientable orientable = (Orientable) block.getBlockData();
+                        Axis axis = orientable.getAxis();
+                        if (axis == Axis.X) {
+                            if (event.getWorld().getBlockAt(x, y, zMinus).getType() != Material.AIR) {
+                                    event.getWorld().getBlockAt(x, y, zMinus).breakNaturally();
+                                }
+                                if (event.getWorld().getBlockAt(x, y, zPlus).getType() != Material.AIR) {
+                                    event.getWorld().getBlockAt(x, y, zPlus).breakNaturally();
+                                }
+                            }
+                            if(axis == Axis.Z) {
+                                if (event.getWorld().getBlockAt(x, y, zMinus).getType() != Material.AIR) {
+                                    event.getWorld().getBlockAt(x, y, zMinus).breakNaturally();
+                                }
+                                if (event.getWorld().getBlockAt(x, y, zPlus).getType() != Material.AIR) {
+                                    event.getWorld().getBlockAt(x, y, zPlus).breakNaturally();
+                                }
+                            }
+                            }
+                }
+            }
+        } else {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler

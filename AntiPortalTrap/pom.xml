@@ -6,7 +6,7 @@
 
     <groupId>AntiPortalTrap</groupId>
     <artifactId>AntiPortalTrap</artifactId>
-    <version>1.1-Snapshot</version>
+    <version>1.2-Snapshot</version>
     <packaging>jar</packaging>
 
     <name>AntiPortalTrap</name>
