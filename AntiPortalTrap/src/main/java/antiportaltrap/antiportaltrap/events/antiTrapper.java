@@ -12,9 +12,19 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
+
 public class antiTrapper implements Listener {
+
+    private static HashMap<String, Integer> attemptCount = new HashMap<String, Integer>();
+
+    @EventHandler
+    public static void playerJoined(PlayerJoinEvent event){
+        attemptCount.put(event.getPlayer().getDisplayName(), 0);
+    }
 
     @EventHandler
     public static void blockPlaced(BlockPlaceEvent event) {
@@ -33,18 +43,34 @@ public class antiTrapper implements Listener {
             event.setCancelled(true);
             Bukkit.getConsoleSender().sendMessage("[*] " + event.getPlayer().getDisplayName() + " possibly attempted to portal trap!");
             event.getPlayer().sendMessage("[-] Remember: Attempting to trap players is against the rules");
+            attemptCount.put(event.getPlayer().getDisplayName(), attemptCount.get(event.getPlayer().getDisplayName()) + 1);
+            if(attemptCount.get(event.getPlayer().getDisplayName()) >= 3 ) {
+                event.getPlayer().kickPlayer("[-] Please refrain from trying to spam the console!");
+            }
         } else if(event.getPlayer().getWorld().getBlockAt(xPlus, y, z).getType() == Material.NETHER_PORTAL) {
             event.setCancelled(true);
             Bukkit.getConsoleSender().sendMessage("[*] " + event.getPlayer().getDisplayName() + " possibly attempted to portal trap!");
             event.getPlayer().sendMessage("[-] Remember: Attempting to trap players is against the rules");
+            attemptCount.put(event.getPlayer().getDisplayName(), attemptCount.get(event.getPlayer().getDisplayName()) + 1);
+            if(attemptCount.get(event.getPlayer().getDisplayName()) >= 3 ) {
+                event.getPlayer().kickPlayer("[-] Please refrain from trying to spam the console!");
+            }
         } else if(event.getPlayer().getWorld().getBlockAt(x, y, zMinus).getType() == Material.NETHER_PORTAL) {
             event.setCancelled(true);
             Bukkit.getConsoleSender().sendMessage("[*] " + event.getPlayer().getDisplayName() + " possibly attempted to portal trap!");
             event.getPlayer().sendMessage("[-] Remember: Attempting to trap players is against the rules");
+            attemptCount.put(event.getPlayer().getDisplayName(), attemptCount.get(event.getPlayer().getDisplayName()) + 1);
+            if(attemptCount.get(event.getPlayer().getDisplayName()) >= 3 ) {
+                event.getPlayer().kickPlayer("[-] Please refrain from trying to spam the console!");
+            }
         } else if(event.getPlayer().getWorld().getBlockAt(x, y, zPlus).getType() == Material.NETHER_PORTAL) {
             event.setCancelled(true);
             Bukkit.getConsoleSender().sendMessage("[*] " + event.getPlayer().getDisplayName() + " possibly attempted to portal trap!");
             event.getPlayer().sendMessage("[-] Remember: Attempting to trap players is against the rules");
+            attemptCount.put(event.getPlayer().getDisplayName(), attemptCount.get(event.getPlayer().getDisplayName()) + 1);
+            if(attemptCount.get(event.getPlayer().getDisplayName()) >= 3 ) {
+                event.getPlayer().kickPlayer("[-] Please refrain from trying to spam the console!");
+            }
         }
     }
 }
