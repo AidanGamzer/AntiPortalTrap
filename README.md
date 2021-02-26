@@ -11,10 +11,11 @@ Restart the server.
 
 Now players cannot place blocks within one block of a nether portal block.
 
+Players will also be kicked after trying to place a block next to a portal more than three times to avoid console spam.
+
 ## Upcoming Features
 
 Disabling players from pistoning blocks into portals. 
-Kick players after five attempted block places.
 
 
 ##  Version Support
