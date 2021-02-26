@@ -12,11 +12,14 @@ import org.bukkit.block.Block;
 import org.bukkit.Material;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Orientable;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.PortalCreateEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -33,7 +36,7 @@ public class antiTrapper implements Listener {
 
     @EventHandler
     public static void createPortal(PortalCreateEvent event){
-        if(event.getBlocks().size() < 20){
+        if(event.getBlocks().size() < 30){
             for (int i = 0; i < event.getBlocks().size(); i++) {
                 BlockState block = event.getBlocks().get(i);
                 if(block.getType() == Material.NETHER_PORTAL){
@@ -50,20 +53,21 @@ public class antiTrapper implements Listener {
                     if(block.getBlockData() instanceof Orientable){
                         Orientable orientable = (Orientable) block.getBlockData();
                         Axis axis = orientable.getAxis();
+                        ItemStack pickaxe = new ItemStack(Material.DIAMOND_PICKAXE);
                         if (axis == Axis.X) {
                             if (event.getWorld().getBlockAt(x, y, zMinus).getType() != Material.AIR) {
-                                    event.getWorld().getBlockAt(x, y, zMinus).breakNaturally();
+                                    event.getWorld().getBlockAt(x, y, zMinus).breakNaturally(pickaxe);
                                 }
                                 if (event.getWorld().getBlockAt(x, y, zPlus).getType() != Material.AIR) {
-                                    event.getWorld().getBlockAt(x, y, zPlus).breakNaturally();
+                                    event.getWorld().getBlockAt(x, y, zPlus).breakNaturally(pickaxe);
                                 }
                             }
                             if(axis == Axis.Z) {
-                                if (event.getWorld().getBlockAt(x, y, zMinus).getType() != Material.AIR) {
-                                    event.getWorld().getBlockAt(x, y, zMinus).breakNaturally();
+                                if (event.getWorld().getBlockAt(xMinus, y, z).getType() != Material.AIR) {
+                                    event.getWorld().getBlockAt(xMinus, y, z).breakNaturally(pickaxe);
                                 }
-                                if (event.getWorld().getBlockAt(x, y, zPlus).getType() != Material.AIR) {
-                                    event.getWorld().getBlockAt(x, y, zPlus).breakNaturally();
+                                if (event.getWorld().getBlockAt(xPlus, y, z).getType() != Material.AIR) {
+                                    event.getWorld().getBlockAt(xPlus, y, z).breakNaturally(pickaxe);
                                 }
                             }
                             }
